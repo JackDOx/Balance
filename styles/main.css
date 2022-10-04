@@ -1,0 +1,87 @@
+body{
+    background: linear-gradient(135deg, #e29cfe, #9ad7ff);
+
+  }
+  *{
+    box-sizing: border-box;
+  }
+  h1{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    color: rgb(78, 66, 66);
+    text-transform: uppercase;
+  }
+  .ins{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:17px ;
+    color: rgb(78, 66, 66);
+    margin-left: 10px;
+    background-color: #f2dced;
+  }
+  input[type=submit] {
+    width: 65%;
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 20px;
+    border: bisque;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  input[type=submit]:hover {
+    width: 65%;
+    background: linear-gradient(135deg, #e43131, #1bdd2e);
+  }
+
+
+  input[type=text], select{
+    width: 20%;
+    padding: 20px 20px;
+    margin: 20px 20px;
+    border: 3px solid #ccc;
+    border-radius: 2px;
+  
+  }
+
+  .out {
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #f2dced;
+  padding: 20px;
+}
+
+  .digit {
+    margin-top: 50px;
+    display: inline-flex;       
+  }      
+
+  .contact {
+    width: 55px;
+    height: 55px;
+    margin-left: 23px;
+    cursor: pointer;
+  }
+  .contact:hover{
+    width: 65px;
+    height: 65px;
+
+  }
+  .mail {
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+  .mail:hover{
+    width: 70px;
+    height:70px;
+
+  }
+
+  .plus {
+    color:black;
+    font-size: 25px;
+    margin-top: 40px;
+  }

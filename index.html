@@ -1,317 +1,99 @@
-
-<!DOCTYPE html> 
-
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chọn Ngôn Ngữ</title>
+    <link rel="stylesheet" href="./styles/s1.css">
+    <style>
 
-        <title>Balance Chemical Equation</title>
-
-        <link rel="icon" type="image/png" href="https://yt3.ggpht.com/ytc/AMLnZu8TbTy5wAyB95cLYqHJM8lNTFy4sPhousRXMABF=s900-c-k-c0x00ffffff-no-rj" />
-        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
-        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-        <link rel="stylesheet" href="./styles/main.css">
-        
-        
-    </head>
-    
-
-    <body>
-
-      <h1>Balance Chemical Equation</h1>
-      <p class="ins">Instruction:<br>
-          - If the equation only has 1 product, leave the 4th box empty <br>
-          - If the equation has parenthesis, ex: Ca(OH)2 => write CaO2H2<br>
-          - If the equation has organic compound, ex: CH3COOH => wrtie C2H4O2
-      </p>
-      <form onsubmit="return false"; >
+        body{
+            align-items: center;
+            justify-content: center;
+            background-image: url(https://i.gifer.com/BVM4.gif);
+            background-size:cover;
             
-      <div class = "digit" >
-        <label for="first"; ;></label>
-        <input type="text" id="first" name="first" placeholder="Enter first substance" value="" required> <br>
-             <div class="plus"> +</div>
-
-            
-        <label for="second"; ></label>
-        <input type="text" id="second" name="second" placeholder="Second substance" value=""><br>
-            <div class="plus"> ></div>
-
-        <label for="third"; ></label>
-        <input type="text" id="third" name="third" placeholder="Third substance" value=""><br>
-            <div class="plus"> +</div>
-
-        <label for="fourth"; ></label>
-        <input type="text" id="fourth" name="fourth" placeholder="Fourth substance" value="">
-          
-      </div>   
-        <!--
-        <select name ="last" id="last">
-          <option value ="fe">Amazing</option>
-          <option value ="se">Good job</option>  
-        </select>
-      -->
-      <div> 
-        <input pys-onClick="balance" type ="submit" id ="btn-form" value ="submit">
-        <input onclick="myFunction()" type ="submit" id ="btn-form" value ="clear">
-      </div>
-        
-        
-      </form>
-
-
-
-
-      <p class="out" id='output'>Output:</p>
-
-      <script>
-        function myFunction() {
-            document.getElementById("first").value="" ;
-            document.getElementById("second").value="" ;
-            document.getElementById("third").value="" ;
-            document.getElementById("fourth").value="" ;
         }
-      </script>
-
-      
-      <py-script>
-
-        import re
-      def balance(*args, **kargs):
-
-        result = Element('output')
-
-        # tách chất / Get Chemical substances
-        def getChem(chem):
-            firstEChem = []
-            x = re.findall("[A-Z][a-z]?[1-9]?[1-9]?", chem)
-            x.sort()
-            for f in range(len(x)):
-                s = re.findall("[A-Z][a-z]?", x[f])
-                s = str(s[0])
-              
-                firstEChem.append(s)
-                
-            return firstEChem
-
-        # funtion() tách hệ số/ Get chemical value//
-        def getValue(chem):
-            firstEValue = []
-            x = re.findall("[A-Z][a-z]?[1-9]?[1-9]?", chem)
-            x.sort()
-            for f in range(len(x)):
-                h = re.findall("[0-9][0-9]?", x[f])
-                try:
-                    h = int(h[0])
-                except:
-                    h = 1
-
-                firstEValue.append(h)
-            return firstEValue
-
-
-
-
-        #test a value convertable to int
-        def into(dun):
-            try:
-                dun = int(dun)
-                return True
-            except:
-                return False
-
-        # 1stE
-        firstE = f"{Element('first').value}"
-        op = []
-        op.extend(firstE)
-        op.append(None)
-        op.insert(0, None)
-        fec = getChem(firstE)
-        fev = getValue(firstE)
-
-        # 2ndE
-        secondE = f"{Element('second').value}"
-        sec = getChem(secondE)
-        sev = getValue(secondE)
-
-
-        # 3rdE
-        thirdE = f"{Element('third').value}"
-        thc = getChem(thirdE)
-        thv = getValue(thirdE)
-
-        # 4thE
-
-        fourthE = f"{Element('fourth').value}"
-        foc = getChem(fourthE)
-        fov = getValue(fourthE)
-
-        try:
-            if fourthE == "":
-                for a in range(1,32):
-                    for b in range(1,32):
-                        for c in range(1, 32):
-                            e = []
-                            f = []
-                            g = []
-                            h = []
-                            for x in range(len(fec)):
-                                try:
-                                    i = sec.index(fec[x]) # search position of Na in second E
-                                    o = sev[i]
-                                    mo = a*fev[x] + b*sev[i]
-                                    e.append(mo)
-                                    
-                                except: # ramaining first E
-                                    mi = a*fev[x]
-                                    e.append(mi)
-
-                                ma = thc.index(fec[x])
-                                mo = c*thv[ma]
-                                g.append(mo)
-
-                            for x in range(len(sec)):
-                                if sec[x] not in fec:
-                                    mp = b*sev[x]
-                                    f.append(mp)
-                                    mc = thc.index(sec[x])
-                                    md = c*thv[mc]
-                                    g.append(md)
-                            if e+f == g:
-                                fe = a
-                                se = b
-                                te = c
-
-                                break
-                        if e+f == g:
-                            fe = a
-                            se = b
-                            te = c
-
-                            break
-                    if e+f == g:
-                        fe = a
-                        se = b
-                        te = c
-
-                        break
-
+        .Viet, .Eng{
+            font-size: large;
+            position:absolute;
+            color: rgb(234, 236, 228);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .Viet{
+            top: 46%;
+            left: 25%;
             
-            else:
-                for a in range(1, 17):
-                    for b in range(1, 50):
-                        for c in range(1, 50):
-                            for d in range(1, 22):
-                                e = []
-                                f = []
-                                g = []
-                                h = []
-                                for x in range(len(fec)):
-                                    try:
-                                        i = sec.index(fec[x]) # search position of Na in second E
-                                        o = sev[i]
-                                        mo = a*fev[x] + b*sev[i]
-                                        e.append(mo)
+            
+        }
+        .Eng{
+            top: 46%;
+            right: 25%;
+        }
 
-                                    except: # ramaining first E
-                                        mi = a*fev[x]
-                                        e.append(mi)
-                                    #third E    
-                                    try:
-                                        u = thc.index(fec[x])
-                                        try:
-                                            j = foc.index(fec[x])
-                                            iu = c*thv[u]+ d*fov[j]
-                                            g.append(iu)
-                                        except:     
-                                            g.append(c*thv[u])
+        .Vflag, .Eflag{
+            display:flex;
+            position:absolute;
+            width: 110px;
+            height: 70px;
+            top:35%;
+            cursor: pointer;
+        }
 
-                                    except:
-                                        hm = foc.index(fec[x])
-                                        p = d*fov[hm]
-                                        g.append(p)
+        .Vflag{
 
-                                # Remaining second E and search them in third E and fourth E
-                                for x in range(len(sec)):
-                                    if sec[x] not in fec:
-                                        mp = b*sev[x]
-                                        f.append(mp)
-                                        try:
-                                            l = thc.index(sec[x])
-                                            try:
-                                                mv = foc.index(sec[x])
-                                                mj = c*thv[l] + d*fov[mv]
-                                                h.append(mj)
+            left: 23%;
+        }
+        .Eflag{
 
-                                            except:
-                                                h.append(c*thv[l])
+            right: 23%;
+        }
 
-                                        except:
-                                            lm = foc.index(sec[x])
-                                            h.append(d*fov[lm])
-                                if e == g and f == h:
-                                    fe = a
-                                    se = b
-                                    te = c
-                                    foe = d
-                                    break
-                            if e == g and f == h:
-                                fe = a
-                                se = b
-                                te = c
-                                foe = d
-                                break
-                        if e == g and f == h:
-                            fe = a
-                            se = b
-                            te = c
-                            foe = d
-                            break
-                    if e == g and f == h:
-                        fe = a
-                        se = b
-                        te = c
-                        foe = d
-                        break
+        .Vflag:hover, .Eflag:hover , .Viet:hover , .Eng:hover{
+            font-size: 25px;
+            width: 130px;
+            height: 80px;
+        }
+        h1{
+            color: rgb(234, 236, 228);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:#270750;
+            opacity:90%;
+            text-align: center;
+            top: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            height:60px;
+         
+        }
 
-            if fourthE == "":
-                if fe >30 and se > 30  and te > 30:
-                    result.write("Error no result")
-                else:
-                    partial_result = (fe, se, te)
-                    main_result =f"{str(fe)}{firstE}   +   {str(se)}{secondE}    ->   {str(te)}{thirdE}"
-                    result.write(main_result)
-            else:
-                if fe >15 and se > 48 and te> 48:
-                    result.write("Error no result")
-                else:
-                    partial_result = (fe, se, te, foe)
-                    main_result =f"{str(fe)}{firstE}   +   {str(se)}{secondE}    ->   {str(te)}{thirdE}   +   {str(foe)}{fourthE}"
-                    result.write(main_result)
-        except:
-            result.write("Error! heck your chemical substances again")
+        .cred{
+            color: rgb(234, 236, 228);
+            font-size: 13px;
+            font-family: Arial, Helvetica, sans-serif;
+            
+            text-align: center;
 
-      </py-script>
+        }
+    </style>
+</head>
+<body>
+    <h1>Chọn Ngôn Ngữ</h1>
     
-
-
-      <h2 style="margin-left: 20px"><b>Contact me via:</b></h2>
-      <div class="contact">
-        
-      <a href="https://www.facebook.com/quangduydo.jack/" target="blank">
-        
-        <img alt="Qries" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
-        >
-      </a>
-      </div>
-
-      <div class="mail">
-      <a href="mailto:jackydo1974@gmail.com">
-        <img alt="Qries" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/2560px-Gmail_icon_%282020%29.svg.png"
-        >
-      </a>
-      </div>
-      
-
-    </body>
+    <div class="lang">
+        <a href="./Can_Bang.html">
+            <img class ="Vflag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Vietnam.svg/2560px-Flag_of_Vietnam.svg.png">
+            <p class="Viet">Tiếng Việt</p>
+        </a>
+        <a href="./index.html">
+            <img class="Eflag" src="https://cdn.britannica.com/33/4833-004-828A9A84/Flag-United-States-of-America.jpg">
+            <p class="Eng">English</p>
+        </a>
+    </div>
+    <div class="cred">
+    <p>Created by Jack Do<br>
+    in support of Trye</p>
+    </div>
+</body>
 </html>
